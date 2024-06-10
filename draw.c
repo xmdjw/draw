@@ -13,7 +13,7 @@
 #define ZERO ' '
 
 #define COL 136
-#define ROW 30  //declare x-1,y-1
+#define ROW 35  //declare x-1,y-1
 
 int before_draw();
 int drawing(char paper[ROW][COL]);
@@ -25,22 +25,24 @@ int main()
 	memset(paper,ZERO,sizeof(paper)); //ROW*COL);  //init a array
 
 	if ((before_draw() != 0)) return -1;
+	char a;
 
 	while(1)
 	{
 		if ((drawing(paper)) !=0 )
 		{
-			return -1;
+			printf("number is too big,it over paper.\n");
 		}
 
-		printf("draw again? ");
+		printf("draw again?You can input ctrl-c to quit.\n\n");
+		/*fflush(stdin);
 		fflush(stdin);
-		char a;
-		a = getchar();
-		if (a != 'y'){
+		scanf("%c",&a);
+		if (a != 'y')
+		{
 			printf("a=%c\n",a);
 			return 0;
-		}
+		}*/
 	}	   
 	
 
@@ -71,13 +73,14 @@ int drawing(char paper[ROW][COL])
 	printf("input you want draw(1~9)");
 	scanf("%d",&num);
 
-	if (num<1 || num>9) {
+	if (num<0 || num>9)
+	{
 		printf("please input agian! if you want to quit,input clrl_c,if you want to print,input p.\n");
 		return -1;
 	}
 
-	paper[y][x] = num==1 ? ONE:num==2 ?TWO:num==3 ?THREE :num==4 ?FOUR :num==5 ?FIVE :num==6 ?SIX:num==7 ?SEVEN:num==8?EIGHT:NINE;
-
+	paper[y][x] = num==1 ?ONE:num==2 ?TWO:num==3 ?THREE :num==4 ?FOUR :num==5 ?FIVE :num==6 ?SIX:num==7 ?SEVEN:num==8?EIGHT:NINE;
+	if (num == 0)  paper[y][x] = ZERO; //eraser
 	print_paper(paper);
 	return 0;
 }
@@ -93,4 +96,17 @@ void print_paper(char paper [ROW][COL])
 		}
 	}
 }
+
+void find_point(char paper [ROW][COL],int x,int y)
+{
+	if (paper [y][x] == ONE)  printf("the point is one.\n");
+}
+
+
+
+
+
+
+
+
 
